@@ -1,0 +1,8 @@
+.git
+.gitignore
+README.md
+.vscode
+.idea
+logs
+tmp
+node_modules
