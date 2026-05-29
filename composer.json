@@ -2,5 +2,7 @@
     "name": "prat0926/agricultural_management",
     "description": "Agriculture Management System",
     "type": "project",
-    "require": {}
+    "require": {
+        "cloudinary/cloudinary_php": "^3.1"
+    }
 }
