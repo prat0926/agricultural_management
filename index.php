@@ -1,6 +1,12 @@
 <?php
 // index.php
-require_once 'config/database.php';;
+require_once 'config/database.php';
+// 1. Put it at the very top of your main entry file (e.g., index.php or server.php)
+$port = isset($_ENV['PORT']) ? $_ENV['PORT'] : 8080;
+
+// 2. Use that $port variable where your server listener or database redirecting is defined
+// Example if using a built-in script execution:
+// shell_exec("php -S 0.0.0.0:" . $port);
 ?>
 <!DOCTYPE html>
 <html lang="en">
