@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Add to Cart</title>
+    <script>
+    async function test() {
+        const res = await fetch('add_to_cart.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'product_id=1'
+        });
+        const text = await res.text();
+        console.log(text);
+        alert(text);
+    }
+    </script>
+</head>
+<body>
+    <button onclick="test()">Test Add to Cart (Product ID 1)</button>
+    <p>Make sure you are logged in as customer first.</p>
+</body>
+</html>

@@ -1,0 +1,8 @@
+FROM mysql:8.0
+# Settings for MySQL
+ENV MYSQL_ROOT_PASSWORD=your_strong_password
+ENV MYSQL_DATABASE=agriculture_db
+ENV MYSQL_USER=agri_user
+ENV MYSQL_PASSWORD=agri_password
+# Optional: Copy your .sql file for automatic initialization
+# COPY ./database.sql /docker-entrypoint-initdb.d/
