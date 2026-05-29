@@ -40,158 +40,35 @@ $products = mysqli_query($conn, $sql);
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .products-header {
-            text-align: center;
-            margin-top: 100px;
-            margin-bottom: 2rem;
-        }
-        .category-filter {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-        .filter-btn {
-            padding: 8px 20px;
-            background: white;
-            border: 2px solid #4caf50;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        .filter-btn.active, .filter-btn:hover {
-            background: #4caf50;
-            color: white;
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-        .product-image {
-            height: 200px;
-            background: #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .product-image i {
-            font-size: 4rem;
-            color: #999;
-        }
-        .product-info {
-            padding: 1.5rem;
-        }
-        .product-info h3 {
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-        .farmer-name {
-            color: #666;
-            font-size: 0.85rem;
-            margin-bottom: 0.5rem;
-        }
-        .price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4caf50;
-            margin: 0.5rem 0;
-        }
-        .price span {
-            font-size: 0.8rem;
-            color: #666;
-        }
-        .expiry, .stock {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 0.3rem;
-        }
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 10px;
-            background: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: background 0.3s;
-        }
-        .add-to-cart-btn:hover {
-            background: #45a049;
-        }
-        .floating-cart-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #4caf50;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            text-decoration: none;
-            z-index: 1000;
-        }
-        .cart-count-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #f44336;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .no-products {
-            text-align: center;
-            padding: 3rem;
-            background: white;
-            border-radius: 15px;
-            grid-column: 1 / -1;
-        }
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        /* ... your existing styles ... */
+        .products-header { text-align: center; margin-top: 100px; margin-bottom: 2rem; }
+        .category-filter { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .filter-btn { padding: 8px 20px; background: white; border: 2px solid #4caf50; border-radius: 30px; cursor: pointer; font-weight: 500; transition: all 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: #4caf50; color: white; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+        .product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-image { height: 200px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; }
+        .product-image i { font-size: 4rem; color: #999; }
+        .product-info { padding: 1.5rem; }
+        .product-info h3 { margin-bottom: 0.5rem; color: #333; }
+        .farmer-name { color: #666; font-size: 0.85rem; margin-bottom: 0.5rem; }
+        .price { font-size: 1.5rem; font-weight: bold; color: #4caf50; margin: 0.5rem 0; }
+        .price span { font-size: 0.8rem; color: #666; }
+        .expiry, .stock { font-size: 0.85rem; color: #666; margin-bottom: 0.3rem; }
+        .add-to-cart-btn { width: 100%; padding: 10px; background: #4caf50; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: background 0.3s; }
+        .add-to-cart-btn:hover { background: #45a049; }
+        .floating-cart-btn { position: fixed; bottom: 20px; right: 20px; background: #4caf50; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-decoration: none; z-index: 1000; }
+        .cart-count-badge { position: absolute; top: -5px; right: -5px; background: #f44336; border-radius: 50%; width: 22px; height: 22px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+        .no-products { text-align: center; padding: 3rem; background: white; border-radius: 15px; grid-column: 1 / -1; }
+        @media (max-width: 768px) { .products-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="container">
-            <div class="logo">
-                <i class="fas fa-leaf"></i>
-                <span>FarmFresh</span>
-            </div>
+            <div class="logo"><i class="fas fa-leaf"></i><span>FarmFresh</span></div>
             <ul class="nav-links">
                 <li><a href="dashboard.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
@@ -208,7 +85,6 @@ $products = mysqli_query($conn, $sql);
             <p>Directly from farmers to your table</p>
         </div>
 
-        <!-- Category Filter -->
         <div class="category-filter">
             <button onclick="location.href='products.php'" class="filter-btn <?php echo !$category || $category == 'all' ? 'active' : ''; ?>">All</button>
             <button onclick="location.href='products.php?category=Vegetables'" class="filter-btn <?php echo $category == 'Vegetables' ? 'active' : ''; ?>">Vegetables</button>
@@ -217,19 +93,14 @@ $products = mysqli_query($conn, $sql);
             <button onclick="location.href='products.php?category=Herbs'" class="filter-btn <?php echo $category == 'Herbs' ? 'active' : ''; ?>">Herbs</button>
         </div>
 
-        <!-- Products Grid -->
         <div class="products-grid">
             <?php if(mysqli_num_rows($products) > 0): ?>
                 <?php while($product = mysqli_fetch_assoc($products)): ?>
                 <div class="product-card">
                     <div class="product-image">
-                        <?php 
-                        // Check if product has an uploaded image and file exists
-                        if(!empty($product['image']) && file_exists('../' . $product['image'])): 
-                        ?>
-                            <img src="../<?php echo $product['image']; ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
+                        <?php if(!empty($product['image'])): ?>
+                            <img src="<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
                         <?php else: ?>
-                            <!-- Default icon if no image -->
                             <i class="fas fa-carrot"></i>
                         <?php endif; ?>
                     </div>
@@ -255,7 +126,6 @@ $products = mysqli_query($conn, $sql);
         </div>
     </div>
 
-    <!-- Floating Cart Button -->
     <a href="cart.php" class="floating-cart-btn">
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-count-badge" id="floating-count">0</span>
@@ -263,7 +133,6 @@ $products = mysqli_query($conn, $sql);
 
     <script src="../assets/js/main.js"></script>
     <script>
-        // Update cart count in navbar and floating button
         function updateCartCountUI() {
             fetch('get_cart_count.php')
                 .then(res => res.json())
@@ -277,7 +146,6 @@ $products = mysqli_query($conn, $sql);
         setInterval(updateCartCountUI, 3000);
         updateCartCountUI();
 
-        // addToCart function (if not already defined in main.js)
         if (typeof addToCart === 'undefined') {
             window.addToCart = function(productId) {
                 let btn = event.target;

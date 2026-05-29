@@ -3,7 +3,19 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once '../config/database.php';  // use require_once
+require_once '../vendor/autoload.php';
+
+\Cloudinary::config([
+    'cloud_name' => 'YOUR_CLOUD_NAME',
+    'api_key' => 'YOUR_API_KEY',
+    'api_secret' => 'YOUR_API_SECRET',
+]);
+
+// Then inside the POST handling:
+if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
+    $upload = \Cloudinary\Uploader::upload($_FILES['product_image']['tmp_name']);
+    $image_url = $upload['secure_url']; // store this in your database
+} // use require_once
 
 header('Content-Type: application/json');
 
