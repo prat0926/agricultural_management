@@ -1,5 +1,13 @@
 <?php
 require_once '../config/database.php';
+require_once '../vendor/autoload.php';
+
+// Configure Cloudinary
+\Cloudinary::config([
+    'cloud_name' => 'YOUR_CLOUD_NAME',   // Replace with your Cloudinary cloud name
+    'api_key' => 'YOUR_API_KEY',         // Replace with your API key
+    'api_secret' => 'YOUR_API_SECRET'    // Replace with your API secret
+]);
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'farmer') {
     header("Location: ../farmer_login.php");
@@ -19,29 +27,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $farmer_id = $_SESSION['user_id'];
     
-    // Handle image upload
-    $image_path = '';
+    // Handle image upload with Cloudinary
+    $image_url = '';
     if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
-        $allowed = ['jpg', 'jpeg', 'png', 'gif'];
-        $filename = $_FILES['product_image']['name'];
-        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-        if (in_array($ext, $allowed)) {
-            $new_filename = time() . '_' . uniqid() . '.' . $ext;
-            $upload_dir = '../uploads/';
-            if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
-            if (move_uploaded_file($_FILES['product_image']['tmp_name'], $upload_dir . $new_filename)) {
-                $image_path = 'uploads/' . $new_filename;
-            } else {
-                $error = "Failed to upload image.";
-            }
-        } else {
-            $error = "Only JPG, PNG, GIF files allowed.";
+        try {
+            $upload = \Cloudinary\Uploader::upload($_FILES['product_image']['tmp_name']);
+            $image_url = $upload['secure_url'];
+        } catch (Exception $e) {
+            $error = "Image upload failed: " . $e->getMessage();
         }
     }
     
     if (empty($error)) {
         $sql = "INSERT INTO products (farmer_id, product_name, category, price, quantity, unit, expiry_date, description, image) 
-                VALUES ('$farmer_id', '$product_name', '$category', '$price', '$quantity', '$unit', '$expiry_date', '$description', '$image_path')";
+                VALUES ('$farmer_id', '$product_name', '$category', '$price', '$quantity', '$unit', '$expiry_date', '$description', '$image_url')";
         
         if (mysqli_query($conn, $sql)) {
             $success = "Product added successfully!";
@@ -61,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Additional styles for form container (matches original design) */
         .form-container {
             max-width: 700px;
             margin: 100px auto 50px;
@@ -165,7 +163,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <!-- Navigation Bar (same as original) -->
     <nav class="navbar">
         <div class="container">
             <div class="logo">
@@ -181,7 +178,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
-    <!-- Form Container -->
     <div class="form-container">
         <div class="form-header">
             <i class="fas fa-plus-circle"></i>
